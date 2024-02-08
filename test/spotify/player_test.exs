@@ -10,6 +10,7 @@ defmodule Spotify.PlayerTest do
     Paging,
     Playback,
     Player,
+    Queue,
     Track
   }
 
@@ -43,6 +44,12 @@ defmodule Spotify.PlayerTest do
   describe "build_response/1 with currently playing response" do
     test "build currently playing struct" do
       assert %CurrentlyPlaying{} = Player.build_response(currently_playing_response())
+    end
+  end
+
+  describe "build_response/1 with queue response" do
+    test "build queue struct" do
+      assert %Queue{} = Player.build_response(queue_response())
     end
   end
 
@@ -231,6 +238,13 @@ defmodule Spotify.PlayerTest do
       "item" => track(),
       "progress_ms" => 167_217,
       "timestamp" => 1_607_704_916_381
+    }
+  end
+
+  defp queue_response do
+    %{
+      "currently_playing" => track(),
+      "queue" => [track()]
     }
   end
 
