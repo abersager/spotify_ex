@@ -17,6 +17,7 @@ defmodule Spotify.Player do
     History,
     Paging,
     Playback,
+    Queue,
     Track
   }
 
@@ -121,6 +122,17 @@ defmodule Spotify.Player do
   """
   def currently_playing_url(params \\ []) do
     "https://api.spotify.com/v1/me/player/currently-playing" <> query_string(params)
+  end
+
+  @doc """
+  Get the list of objects that make up the user's queue.
+  [Spotify Documentation](https://developer.spotify.com/documentation/web-api/reference/get-queue)
+
+  **Method**: `GET`
+  """
+  def get_queue(conn, params \\ []) do
+    url = "https://api.spotify.com/v1/me/player/queue"
+    conn |> Client.get(url) |> handle_response()
   end
 
   @doc """
@@ -328,6 +340,13 @@ defmodule Spotify.Player do
     to_struct(Playback, body)
   end
 
+  def build_response(body = %{"currently_playing" => _, "queue" => _}) do
+    %Queue{
+      currently_playing: build_item(body["currently_playing"]),
+      queue: Enum.map(body["queue"], &build_item/1)
+    }
+  end
+
   def build_response(body) do
     body =
       body
@@ -357,6 +376,14 @@ defmodule Spotify.Player do
         context: to_struct(Context, history["context"])
       }
     end)
+  end
+
+  defp build_item(body = %{"type" => "episode"}) do
+    to_struct(Episode, body)
+  end
+
+  defp build_item(body = %{"type" => "track"}) do
+    to_struct(Track, body)
   end
 
   defp build_item(body = %{"item" => nil}), do: body
