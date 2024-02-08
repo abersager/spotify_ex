@@ -57,7 +57,8 @@ defmodule Spotify.Mixfile do
       {:plug, ">= 1.4.5"},
       {:mock, "~> 0.3.0", only: :test},
       {:ex_doc, "~> 0.28.4", only: :dev},
-      {:inch_ex, "~> 0.5.6", only: :docs}
+      {:inch_ex, "~> 0.5.6", only: :docs},
+      {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false}
     ]
   end
 end
