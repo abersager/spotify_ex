@@ -386,7 +386,7 @@ defmodule Spotify.Player do
     to_struct(Track, body)
   end
 
-  defp build_item(body = %{"item" => nil}), do: body
+  defp build_item(nil), do: nil
 
   defp build_item(body = %{"currently_playing_type" => "track"}) do
     Map.update!(body, "item", &to_struct(Track, &1))
