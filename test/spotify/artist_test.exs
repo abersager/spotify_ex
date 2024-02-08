@@ -8,8 +8,10 @@ defmodule Spotify.ArtistTest do
   }
 
   test "%Spotify.Artist{}" do
-    expected = ~w[external_urls followers genres href id images name popularity type uri]a
-    actual = %Artist{} |> Map.from_struct() |> Map.keys()
+    expected =
+      ~w[external_urls followers genres href id images name popularity type uri]a |> Enum.sort()
+
+    actual = %Artist{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
 
     assert actual == expected
   end

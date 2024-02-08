@@ -6,8 +6,9 @@ defmodule Spotify.ProfileTest do
   test "%Spotify.Profile{}" do
     actual =
       ~w[birthdate country display_name email external_urls followers href id images product type uri]a
+      |> Enum.sort()
 
-    expected = %Profile{} |> Map.from_struct() |> Map.keys()
+    expected = %Profile{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
 
     assert actual == expected
   end

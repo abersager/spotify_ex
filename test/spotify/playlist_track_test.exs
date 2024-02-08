@@ -9,8 +9,8 @@ defmodule Spotify.Playlist.TrackTest do
   }
 
   test "%Spotify.Playlist.Track{}" do
-    expected = ~w[added_at added_by is_local track]a
-    actual = %PlaylistTrack{} |> Map.from_struct() |> Map.keys()
+    expected = ~w[added_at added_by is_local track]a |> Enum.sort()
+    actual = %PlaylistTrack{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
 
     assert actual == expected
   end

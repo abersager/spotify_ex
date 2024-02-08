@@ -8,8 +8,8 @@ defmodule Spotify.RecommendationTest do
   }
 
   test "%Recommendation{}" do
-    actual = %Recommendation{} |> Map.from_struct() |> Map.keys()
-    expected = ~w[seeds tracks]a
+    actual = %Recommendation{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
+    expected = ~w[seeds tracks]a |> Enum.sort()
 
     assert actual == expected
   end

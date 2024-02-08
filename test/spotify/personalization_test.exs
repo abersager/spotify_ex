@@ -28,8 +28,8 @@ defmodule Spotify.PersonalizationTest do
   end
 
   test "%Spotify.Personalization{}" do
-    expected = ~w[href items limit next previous total]a
-    actual = %Personalization{} |> Map.from_struct() |> Map.keys()
+    expected = ~w[href items limit next previous total]a |> Enum.sort()
+    actual = %Personalization{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
 
     assert actual == expected
   end

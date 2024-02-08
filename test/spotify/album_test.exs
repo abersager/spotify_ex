@@ -8,11 +8,13 @@ defmodule Spotify.AlbumTest do
   }
 
   test "%Spotify.Album{}" do
-    expected = ~w[album_type artists available_markets copyrights external_ids
+    expected =
+      ~w[album_type artists available_markets copyrights external_ids
       external_urls genres href id images label name popularity release_date
       release_date_precision tracks type]a
+      |> Enum.sort()
 
-    actual = %Album{} |> Map.from_struct() |> Map.keys()
+    actual = %Album{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
     assert actual == expected
   end
 

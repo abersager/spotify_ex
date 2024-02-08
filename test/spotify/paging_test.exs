@@ -4,8 +4,8 @@ defmodule Spotify.PagingTest do
   alias Spotify.Paging
 
   test "%Paging{}" do
-    expected = ~w[cursors href items limit next offset previous total]a
-    actual = %Paging{} |> Map.from_struct() |> Map.keys()
+    expected = ~w[cursors href items limit next offset previous total]a |> Enum.sort()
+    actual = %Paging{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
 
     assert actual == expected
   end

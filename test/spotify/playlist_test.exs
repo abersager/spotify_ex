@@ -42,9 +42,9 @@ defmodule Spotify.PlaylistTest do
 
   test "%Spotify.Playlist{}" do
     expected = ~w[collaborative description external_urls followers
-    href id images name owner public snapshot_id tracks type uri]a
+    href id images name owner public snapshot_id tracks type uri]a |> Enum.sort()
 
-    actual = %Playlist{} |> Map.from_struct() |> Map.keys()
+    actual = %Playlist{} |> Map.from_struct() |> Map.keys() |> Enum.sort()
     assert actual == expected
   end
 
