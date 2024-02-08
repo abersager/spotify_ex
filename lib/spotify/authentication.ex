@@ -16,7 +16,7 @@ defmodule Spotify.Authentication do
   between requests.
   """
   alias Spotify.{
-    AuthenticationError,
+    AuthenticationErrorResponse,
     Credentials,
     Cookies
   }
@@ -33,7 +33,11 @@ defmodule Spotify.Authentication do
       # {:ok, conn}
 
       Spotify.authenticate(conn, %{"not_a_code" => invalid})
-      # AuthenticationError, "No code provided by Spotify. Authorize your app again"
+      # {:error,
+      # %AuthenticationErrorResponse{
+      #   error: "unknown",
+      #   error_description: "No code provided by Spotify. Authorize your app again"
+      # }}
 
       Spotify.authenticate(auth, params)
       # {:ok, auth}
@@ -50,7 +54,11 @@ defmodule Spotify.Authentication do
   end
 
   def authenticate(_, _) do
-    raise AuthenticationError, "No code provided by Spotify. Authorize your app again"
+    {:error,
+     %AuthenticationErrorResponse{
+       error: "unknown",
+       error_description: "No code provided by Spotify. Authorize your app again"
+     }}
   end
 
   @doc """
